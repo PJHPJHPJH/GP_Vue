@@ -1,20 +1,17 @@
 <template>
-<!--  <HelloWorld msg="Hello"/>-->
-  <Index></Index>
+<!--  主页测试-->
+<!--  <Index></Index>-->
+<!--  登录页测试 -->
+<!--  <Login></Login>-->
+<!--  <LoginOrRegister></LoginOrRegister>-->
+  <router-view></router-view>
 </template>
 
-<script>
-// import HelloWorld from './components/HelloWorld.vue'
-// import Index from "@/components/Index";
-import Index from "@/components/Index";
+<script setup>
 
+// import Index from "@/components/pages/Index";
+// import LoginOrRegister from "@/components/pages/LoginOrRegister"
 
-export default {
-  name: 'App',
-  components: {
-    Index,
-  }
-}
 </script>
 
 <style>
