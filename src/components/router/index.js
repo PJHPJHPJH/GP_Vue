@@ -1,8 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
-import Index from "@/components/pages/Index"
-import LoginOrRegister from "@/components/pages/LoginOrRegister"
-
+import Index from "@/components/Foreground/pages/Index"
+import LoginOrRegister from "@/components/Foreground/pages/LoginOrRegister"
+import Background from "@/components/Background/pages/Background"
+import Welcome from "@/components/Background/component/Welcome"
+import Users from "@/components/Background/component/Users"
 
 
 //路由数组
@@ -20,6 +22,23 @@ const routes = [
         path: "/",
         name: "login",
         component: LoginOrRegister,
+    },
+    {
+        //基本格式
+        //后台入口
+        path: "/background",
+        name: "background",
+        component: Background,
+        children: [
+            {
+                path: "welcome",
+                component: Welcome
+            },
+            {
+                path: "users",
+                component: Users
+            }
+        ]
     },
 
 

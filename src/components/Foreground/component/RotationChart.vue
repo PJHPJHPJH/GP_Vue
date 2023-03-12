@@ -1,16 +1,27 @@
 <template>
   <el-carousel :interval="2000" type="card" height="300px"
                id="carousel" :autoplay="true">
-    <el-carousel-item v-for="item in ['热销商品1', '热销商品2', '热销商品3', '热销商品4']" :key="item">
-      <h3 text="2xl" style="text-align: center">{{ item }}</h3>
+<!--    <el-carousel-item v-for="item in ['热销商品1', '热销商品2', '热销商品3', '热销商品4', '热销商品5']" :key="item">-->
+    <el-carousel-item v-for="item in hotItems" :key="item" style="text-align: center">
+      <h3 text="2xl" >热销商品：{{ item.itemid }}</h3>
     </el-carousel-item>
   </el-carousel>
 </template>
 
-<script>
-export default {
-  name: "RotationChart"
-}
+<script setup>
+import {reactive} from "vue";
+import Axios from "axios";
+
+let hotItems = reactive([])
+Axios.get("http://127.0.0.1:5000/hot_item").then(
+    response => {
+      console.log(response.data)
+      for (let i = 0; i < response.data.length; i++){
+        hotItems[i] = response.data[i]
+      }
+    }
+)
+
 </script>
 
 <style scoped>

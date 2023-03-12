@@ -17,9 +17,9 @@
 
 <script setup>
 
-import Login from '@/components/pages/Login'
+import Login from '@/components/Foreground/pages/Login'
 import {ref} from "vue"
-import Register from '@/components/pages/Register'
+import Register from '@/components/Foreground/pages/Register'
 let isLogin = ref(true);
 
 

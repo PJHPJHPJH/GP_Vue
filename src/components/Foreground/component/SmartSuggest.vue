@@ -35,11 +35,12 @@ import Axios from "axios";
 const nowPrice = ref(50);
 // const props = defineProps(['comment_obj'])
 
-//后期动态获得
+
 //需要解决数据抖动问题
 // let comment_obj = null;
 let comment_obj = reactive([{itemid: 1}, {itemid: 2}, {itemid: 3}, {itemid: 4}, {itemid: 5}, {itemid: 6},{itemid: 7},{itemid: 8}]);
-const userId = 14;
+//后期动态获得
+const userId = sessionStorage.getItem("userId");
 Axios.get("http://127.0.0.1:5000/brp/" + userId).then(
     response => {
       console.log(response.data)

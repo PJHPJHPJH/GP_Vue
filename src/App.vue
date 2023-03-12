@@ -9,8 +9,8 @@
 
 <script setup>
 
-// import Index from "@/components/pages/Index";
-// import LoginOrRegister from "@/components/pages/LoginOrRegister"
+// import Index from "@/component/pages/Index";
+// import LoginOrRegister from "@/component/pages/LoginOrRegister"
 
 </script>
 

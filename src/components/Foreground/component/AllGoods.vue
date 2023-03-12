@@ -3,7 +3,7 @@
     <div v-for="(item,index) in 10" class="all-item">
       <h5 class="item-title">商品名称</h5>
       <div class="description">
-        <img src="../../assets/phone.jpg" class="phone-image"
+        <img src="../../../assets/phone.jpg" class="phone-image"
         />
         <div class="text">
           <p>商品描述：{{ description }}</p>

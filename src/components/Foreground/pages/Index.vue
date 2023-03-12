@@ -15,7 +15,7 @@
 </template>
 
 <script setup>
-  import Nav from "@/components/component/Nav";
+  import Nav from "@/components/Foreground/component/Nav";
   import RotationChart from "../component/RotationChart"
   import SmartSuggest from "../component/SmartSuggest"
   import AllGoods from "../component/AllGoods"

@@ -42,6 +42,7 @@
 import {ref} from "vue";
 import Axios from "axios";
 import {useRouter} from "vue-router/dist/vue-router";
+import {ElMessage} from "element-plus";
 
 //控制按钮的变量，true为禁用
 let confirm_disabled = ref(true);
@@ -98,7 +99,6 @@ const setPasswordmsg = function() {
   if (password.value.length < 6 && (name.value !== adminName)) {
     passwordmsg.value = "密码不能少于6位";
     confirm_disabled.value = true;
-
   }
   else if (password.value.length > 16) {
     passwordmsg.value = "密码不能多于16位";
@@ -117,28 +117,40 @@ const setPasswordmsg = function() {
 //向后端发送POST请求验证登录信息
 const login = function(){
 
-  //管理员额外验证
-  if (1 === 2){
 
-  }else{
-    Axios.post("http://localhost:9999/login",{
-      name: name.value,
-      password: password.value,
-    }, {
-      headers: {
-        'Content-Type': 'application/json',
-        // other headers here...
-      }
-    }).then(
-        response => {
-          console.log(response.data)
-          console.log(typeof response.data)
-          if (response.data === true) {
+  Axios.post("http://localhost:9999/login",{
+    name: name.value,
+    password: password.value,
+  }, {
+    headers: {
+      'Content-Type': 'application/json',
+      // other headers here...
+    }
+  }).then(
+      response => {
+        console.log(response.data)
+        console.log(typeof response.data)
+        if (response.data !== false) {
+          sessionStorage.setItem("userId", response.data)
+          if (name.value === adminName) {
+            router.push({path:"/background/welcome"});
+          }
+          else {
             router.push({path:"/index"});
           }
+
         }
-    )
-  }
+        else {
+          reset();
+          ElMessage({
+            message: '用户名或密码错误，请重试！',
+            type: 'warning',
+          })
+
+        }
+      }
+  )
+
 }
 
 
