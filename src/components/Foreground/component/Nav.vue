@@ -17,22 +17,32 @@
       <template #title>用户中心</template>
       <el-menu-item index="2-1">个人信息</el-menu-item>
       <el-menu-item index="2-2">修改密码</el-menu-item>
-      <el-menu-item index="2-3">退出登录</el-menu-item>
+      <el-menu-item index="2-3" @click="loginOff">退出登录</el-menu-item>
     </el-sub-menu>
   </el-menu>
 </template>
 
 <script setup>
-import {ref, defineProps} from "vue";
+import {defineProps} from "vue";
+import {useRouter} from "vue-router/dist/vue-router";
 const props = defineProps({
   activeIndex: String
 })
 
 
+//使用路由
+const router = useRouter();
+
 // const activeIndex = ref('1');
 const handleSelect = (key, keyPath) => {
   console.log(key, keyPath)
 }
+
+const loginOff = function() {
+  sessionStorage.removeItem("userId");
+  router.push({path:"/"});
+}
+
 </script>
 
 <style scoped>

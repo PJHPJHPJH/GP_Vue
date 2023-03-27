@@ -5,10 +5,13 @@ import LoginOrRegister from "@/components/Foreground/pages/LoginOrRegister"
 import Background from "@/components/Background/pages/Background"
 import Welcome from "@/components/Background/component/Welcome"
 import Users from "@/components/Background/component/Users"
-
+import ForgetPassword from "@/components/Foreground/pages/ForgetPassword"
 
 //路由数组
 const routes = [
+
+
+    //前台路由
 
     {
         //基本格式
@@ -23,6 +26,26 @@ const routes = [
         name: "login",
         component: LoginOrRegister,
     },
+    {
+        //基本格式
+        //开启页面默认路由  登录和注册页面
+        path: "/forget",
+        name: "forget",
+        component: ForgetPassword,
+    },
+
+
+
+
+
+
+
+
+
+    //后台路由
+
+
+
     {
         //基本格式
         //后台入口

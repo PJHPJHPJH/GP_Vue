@@ -16,6 +16,9 @@
           <br v-show="namemsg === ''">
           <p v-show="namemsg !== ''" style="height:20px; margin: 0px;">{{ namemsg }}</p>
           <br>
+
+
+
           <el-form-item label="密码：" prop="password">
             <el-input type="password" prefix-icon="el-icon-lock" v-model="password" show-password autocomplete="off" @keyup.enter="confirm"
              placeholder="请输入密码" clearable @blur="setPasswordmsg"
@@ -24,13 +27,27 @@
           <br v-show="passwordmsg === ''">
           <p v-show="passwordmsg !== ''" style="height: 20px; margin: 0px;">{{ passwordmsg }}</p>
           <br>
+
+
+
+          <el-form-item label="验证码：">
+            <el-input type="text" prefix-icon="el-icon-lock" v-model="checkCode" autocomplete="off" @keyup.enter="confirm"
+                      placeholder="请输入验证码" clearable @blur="setCheckCodemsg"
+            ></el-input>
+            <p id="code"> {{ code }}</p>
+            <p v-show="checkCodemsg !== ''" id="checkCodemsg">{{ checkCodemsg }}</p>
+            <br>
+          </el-form-item>
+
+
+
           <el-form-item>
             <el-button class="loginButton" type="primary" @click="login" :disabled="confirm_disabled">登 录</el-button>
             <el-button class="resetButton" type="primary" @click="reset">重 置</el-button>
           </el-form-item>
         </el-form>
         <br>
-          <a id="forgetPassword" @click.prevent="login" href="https://www.baidu.com/">忘记密码？</a>
+          <a id="forgetPassword" @click.prevent="forgetPassword" href="https://www.baidu.com/">忘记密码？</a>
       </div>
     </div>
   </div>
@@ -49,6 +66,10 @@ let confirm_disabled = ref(true);
 //用户名和密码
 let name = ref("");
 let password = ref("");
+//生成的验证码
+let code = ref("");
+//用户输入的验证码
+let checkCode = ref("");
 //设定管理员的用户名，仅在开发阶段使用，上线后固定为admin
 let adminName = "PJH";
 
@@ -58,13 +79,21 @@ const router = useRouter();
 //验证提示信息
 let namemsg = ref("\t");
 let passwordmsg = ref("\t");
+let checkCodemsg = ref("\t");
+
+
+
+
 
 //重置按钮点击绑定事件
 const reset = function() {
+  createCode()
   name.value = "";
   password.value = "";
+  checkCode.value = "";
   namemsg.value = "\t";
   passwordmsg.value = "\t";
+  checkCodemsg.value = "\t";
   confirm_disabled.value = true;
 }
 
@@ -84,8 +113,8 @@ const setNamemsg = function (){
   }
   else {
     namemsg.value = "";
-    //对密码进行验证，保证用户名和密码都正确才能登录
-    if (passwordmsg.value === ""){
+    //进行验证，保证用户名,验证码和密码都正确才能登录
+    if (passwordmsg.value === "" && checkCodemsg.value === ""){
       confirm_disabled.value = false;
     }
 
@@ -106,13 +135,52 @@ const setPasswordmsg = function() {
   }
   else{
     passwordmsg.value = "";
-    //对用户名进行验证，保证用户名和密码都正确才能登录
-    if (namemsg.value === ""){
+    //进行验证，保证用户名，验证码和密码都正确才能登录
+    if (namemsg.value === "" && checkCodemsg.value === ""){
       confirm_disabled.value = false;
     }
 
   }
 }
+
+
+//验证码功能
+//生成验证码
+const createCode = function() {
+  code.value = "";
+  const codeLength = 4; //验证码的长度
+  const random = new Array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R',
+      'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'); //随机数
+  for(let i = 0; i < codeLength; i++) { //循环操作
+    let index = Math.floor(Math.random() * 36); //取得随机数的索引（0~35）
+    code.value += random[index]; //根据索引取得随机数加到code上
+  }
+  // checkCode.value = code.value; //把code值赋给验证码
+}
+
+//验证验证码是否正确
+const setCheckCodemsg = function() {
+  if (code.value.toLowerCase() !==  checkCode.value.toLowerCase()){
+    checkCodemsg.value = "验证码不正确";
+  }
+  else{
+    checkCodemsg.value = "";
+    //进行验证，保证用户名，验证码和密码都正确才能登录
+    if (namemsg.value === "" && passwordmsg.value === ""){
+      confirm_disabled.value = false;
+    }
+
+  }
+}
+
+
+
+
+
+
+
+
+
 
 //向后端发送POST请求验证登录信息
 const login = function(){
@@ -154,9 +222,20 @@ const login = function(){
 }
 
 
+//忘记密码页面跳转
+const forgetPassword = function() {
+  router.push({path:"/forget"});
+}
 
-// 利用@方法进行前端验证
 
+
+
+
+
+
+
+//调用生成验证码函数
+createCode();
 
 
 
@@ -206,6 +285,21 @@ const login = function(){
 #forgetPassword {
   position: absolute;
   right: 0px;
+}
+
+#code {
+  font-size: 30px;
+}
+
+
+#checkCodemsg {
+  position: absolute;
+  font-size: 30px;
+  left: 100px;
+  top: 60px;
+  height: 20px;
+  margin: 0px;
+
 }
 
 
