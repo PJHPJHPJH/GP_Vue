@@ -26,6 +26,7 @@ Axios.get("http://127.0.0.1:5000/hot_item").then(
 
 <style scoped>
   #carousel {
+    margin-top: 50px;
     padding-top: 20px;
     align-content: center;
     justify-content: center;

@@ -10,12 +10,15 @@
       <el-card :body-style="{ padding: '20px' }">
 <!--        <img src="../../assets/shopcart.jpg" class="image"/>-->
         <div style="padding: 14px">
-          <span>商品ID:{{ (comment_obj[index1 * 2 + index]).itemid }}</span>
+          <span class="itemid">商品ID:{{ (comment_obj[index1 * 2 + index]).itemid }}</span>
 <!--          <span>{{ comment_obj }}</span>-->
+          <br>
+          <br>
+          <time class="time">价格:{{ nowPrice }}</time>
           <div class="bottom">
-            <time class="time">价格:{{ nowPrice }}</time>
-            <el-button text class="button">添加到购物车</el-button>
-            <el-button text class="button">购买</el-button>
+            <el-button text class="btn">查看详情</el-button>
+            <el-button text class="btn">添加到购物车</el-button>
+            <el-button text class="btn">购买</el-button>
           </div>
         </div>
       </el-card>
@@ -66,11 +69,20 @@ Axios.get("http://127.0.0.1:5000/brp/" + userId).then(
   align-items: center;
 }
 
-.button {
+/*.itemid {*/
+/*  position: relative;*/
+/*  left: -130px;*/
+/*}*/
+
+
+.btn {
   padding: 0;
-  width: 15%;
+  width: 30%;
   min-height: auto;
+  font-size: 16px;
 }
+
+
 
 .image {
   width: 50%;
